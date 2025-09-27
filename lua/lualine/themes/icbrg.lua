@@ -1,13 +1,15 @@
 -- Colorscheme for lualine
 
+local palette = require "icbrg.palette"
+
 local colors = {
-    bg = "#000000",
-    fg = "#a6a6a6",
-    blue = "#717f87",
-    green = "#65763e",
-    orange = "#b3733d",
-    yellow = "#ab8652",
-    red = "#7e4a3e",
+    bg = palette.bg,
+    fg = palette.fg,
+    blue = palette.blue,
+    green = palette.green,
+    orange = palette.orange,
+    yellow = palette.yellow,
+    red = palette.red,
 }
 
 return {
