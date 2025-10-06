@@ -13,6 +13,7 @@ return {
     require "icbrg.groups.neogit",
     require "icbrg.groups.nvim-cmp",
     require "icbrg.groups.nvim-tree",
+    require "icbrg.groups.snacks",
     require "icbrg.groups.statusline",
     require "icbrg.groups.telescope",
     require "icbrg.groups.treesitter",
