@@ -28,6 +28,10 @@ function M.load()
         group = group.highlight(palette, opts)
         util.initialise(group)
     end
+
+    -- setup cursor behaviour that adapts on whitespace
+    local cursor = require "icbrg.cursor"
+    cursor.setup(palette)
 end
 
 return M
