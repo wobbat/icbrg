@@ -1,45 +1,30 @@
 local M = {}
 
 function M.setup(palette)
-  -- Cursor block should use the theme foreground color, and the text under it should use the theme background color.
-  -- Set the Cursor highlights once and reapply on ColorScheme; do not change dynamically on movement.
-  local sel = { fg = palette.bg, bg = palette.fg, reverse = false }
+  -- Use theme foreground as the cursor block color and theme background for the text under it.
+  local cursor_hl = { fg = palette.bg, bg = palette.fg }
 
+  -- apply highlights for all relevant cursor groups
   local function apply()
-    vim.api.nvim_set_hl(0, "Cursor", sel)
-    vim.api.nvim_set_hl(0, "lCursor", sel)
-    vim.api.nvim_set_hl(0, "CursorIM", sel)
-    vim.api.nvim_set_hl(0, "TermCursor", sel)
-  end
-
-  -- set initial highlights
-  apply()
-
-  -- attempt to set terminal cursor color (OSC 12) to the theme foreground; many terminals respect this
-  local function set_term_cursor_color()
-    if vim.fn.exists('$TERM') == 1 then
-      -- emit OSC 12 escape sequence with BEL terminator
-      vim.api.nvim_out_write(string.format("\27]12;%s\7", palette.fg))
+    for _, name in ipairs({ "Cursor", "lCursor", "CursorIM", "TermCursor" }) do
+      vim.api.nvim_set_hl(0, name, cursor_hl)
     end
   end
 
-  -- configure guicursor to explicitly use the Cursor highlight where supported
+  apply()
+
+  -- set a sensible guicursor value where supported (guarded)
   pcall(function()
-    vim.o.guicursor = "n-v-c:block-Cursor,i-ci-ve:ver25-Cursor,r-cr:hor20-Cursor"
+    vim.o.guicursor = "n-v-c:block-Cursor,i-ci-ve:ver25,r-cr:hor20"
   end)
 
-  -- Reapply on colorscheme change in case palette/highlights are reapplied
+  -- reapply highlights when the colorscheme changes
   local group = vim.api.nvim_create_augroup("icbrgCursor", { clear = true })
-  vim.api.nvim_create_autocmd({ "ColorScheme" }, {
+  vim.api.nvim_create_autocmd("ColorScheme", {
     group = group,
-    callback = function()
-      apply()
-      set_term_cursor_color()
-    end,
+    callback = apply,
   })
-
-  -- also set terminal cursor color now
-  set_term_cursor_color()
 end
 
 return M
+
