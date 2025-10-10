@@ -1,8 +1,8 @@
 local M = {}
 
 function M.setup(palette)
-  local default = { fg = palette.cursor_fg, bg = palette.cursor_bg, reverse = true }
-  local whitespace = { fg = palette.bg, bg = palette.blue, reverse = false }
+  local default = { fg = palette.cursor_bg, bg = palette.cursor_fg, reverse = false }
+  local whitespace = { fg = palette.bg, bg = palette.cursor_bg, reverse = false }
 
   local function apply(sel)
     vim.api.nvim_set_hl(0, "Cursor", sel)
