@@ -63,13 +63,13 @@ function M.highlight(palette, opts)
     MatchParen = { fg = palette.blue, bg = palette.bg, underline = true },
     MatchWordCur = { underline = true },
     MatchParenCur = { underline = true },
-    Cursor = { fg = palette.cursor_fg, bg = palette.cursor_bg },
-    lCursor = { fg = palette.cursor_fg, bg = palette.cursor_bg },
-    CursorIM = { fg = palette.cursor_fg, bg = palette.cursor_bg },
+    Cursor = { fg = palette.cursor_fg, bg = palette.cursor_bg, reverse = true },
+    lCursor = { fg = palette.cursor_fg, bg = palette.cursor_bg, reverse = true },
+    CursorIM = { fg = palette.cursor_fg, bg = palette.cursor_bg, reverse = true },
     TermCursor = {
       fg = palette.cursor_fg,
       bg = palette.cursor_bg,
-      reverse = false,
+      reverse = true,
     },
     TermCursorNC = {
       fg = palette.alt_bg,
